@@ -1,4 +1,15 @@
+var AnswerQueue = function(dispatcher) {
+	var queue = Immutable.List();
+
+	var onAnswerSubmitted = function(m) {
+		queue = queue.push(m.answer);
+	};
+
+	dispatcher.Subscribe('AnswerSubmitted', onAnswerSubmitted);
+};
+
 var BrailleGame = function(dispatcher, words) {
+	var answerQueue = new AnswerQueue(dispatcher);
 	var solutions = Immutable.List();
 	var currentGuess = "";
 
@@ -18,7 +29,14 @@ var BrailleGame = function(dispatcher, words) {
 		}
 	};
 
-	var onSubmit = function() {};
+	var onSubmit = function() {
+		if (currentGuess.length > 0) {
+			dispatcher.Publish('AnswerSubmitted', {answer: currentGuess});
+
+			currentGuess = "";
+			publishGuessUpdate();
+		}
+	};
 
 	var initialize = function(message) {
 		solutions = message.words;
