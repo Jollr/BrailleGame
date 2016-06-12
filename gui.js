@@ -1,5 +1,5 @@
 ﻿var Gui = function(dispatcher) {
-	var stateElements = Immutable.Map([['initialize', $('#stateInitialize')], ['gameStarted', $('#stateGameStarted')]]);
+	var stateElements = Immutable.Map([['initialize', $('#stateInitialize')], ['gameStarted', $('#stateGameStarted')], ['gameFinished', $('#stateDisplayAnswers')]]);
 	
 	var hideAll = function() {
 		stateElements.map(function(x) {x.hide();});
@@ -23,7 +23,12 @@
 		$('#currentGuess').html(m.updatedGuess);
 	};
 
+	var gameFinished = function(m) {
+		show('gameFinished');
+	};
+
 	dispatcher.Subscribe('Initialize', initialize);
 	dispatcher.Subscribe('Started', start);
 	dispatcher.Subscribe('GuessUpdate', guessUpdate);
+	dispatcher.Subscribe('GameFinished', gameFinished);
 };
