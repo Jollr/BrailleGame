@@ -16,8 +16,14 @@
 
 	var start = function() {
 		show('gameStarted');
+		$('#currentGuess').html('');
+	};
+
+	var guessUpdate = function(m) {
+		$('#currentGuess').html(m.updatedGuess);
 	};
 
 	dispatcher.Subscribe('Initialize', initialize);
 	dispatcher.Subscribe('Started', start);
+	dispatcher.Subscribe('GuessUpdate', guessUpdate);
 };

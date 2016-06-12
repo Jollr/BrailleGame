@@ -91,8 +91,12 @@ var SafeDigit = function(prev, count) {
 
 var BrailleGame = function(dispatcher, words) {
 	var solutions = Immutable.List();
+	var currentWord = "";
 
-	var onLetterTyped = function() {};
+	var onLetterTyped = function(m) {
+		currentWord = currentWord + m.letter;
+		dispatcher.Publish('GuessUpdate', {updatedGuess: currentWord});
+	};
 	var onBackspace = function() {};
 	var onSubmit = function() {};
 
