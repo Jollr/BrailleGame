@@ -3,7 +3,7 @@
 		document.onkeydown = function(e) {
 
 			if (e.ctrlKey && e.shiftKey && e.keyCode == 32) { // ctrl + shift + spatiebalk
-				dispatcher.Publish('MagicHotkey', {});
+				dispatcher.Publish('MagicHotkey');
 			}
 
 			if (e.keyCode >= 65 && e.keyCode <= 90) { 
